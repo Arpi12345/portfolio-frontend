@@ -1,38 +1,53 @@
-import { useEffect } from "react";
-import "@/App.css";
+import React from "react";
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { Toaster } from "./components/ui/toaster";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Components
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Certifications from "./components/Certifications";
+import Education from "./components/Education";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
+const Portfolio = () => {
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
+    <div className="min-h-screen bg-white">
+      <Header />
+      <main>
+        <Hero />
+        <section id="about" className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="text-5xl md:text-6xl font-light text-black mb-6 tracking-tight">
+              About Me
+            </h2>
+            <div className="max-w-4xl mx-auto">
+              <p className="text-xl text-gray-600 leading-relaxed font-light mb-8">
+                I'm a passionate Full Stack Web Developer with expertise in the MERN stack and a strong foundation in modern web technologies. 
+                My journey in technology is driven by curiosity and a commitment to continuous learning.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed font-light mb-8">
+                With a Bachelor's degree in Computer Applications and 18+ Google Cloud Skills Boost badges in AI/ML, MLOps, and GCP Services, 
+                I bring both theoretical knowledge and practical experience to every project I undertake.
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed font-light">
+                I believe in writing clean, efficient code and creating user experiences that are both functional and delightful. 
+                Whether it's building a travel listing platform or exploring the latest in cloud technologies, I approach each challenge with enthusiasm and dedication.
+              </p>
+            </div>
+          </div>
+        </section>
+        <Skills />
+        <Projects />
+        <Certifications />
+        <Education />
+        <Contact />
+      </main>
+      <Footer />
+      <Toaster />
     </div>
   );
 };
@@ -42,9 +57,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<Portfolio />} />
         </Routes>
       </BrowserRouter>
     </div>
