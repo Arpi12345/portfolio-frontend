@@ -55,7 +55,7 @@ const Hero = () => {
           {/* Greeting with Emoji */}
           <div className="space-y-4">
             <h1 className="text-5xl md:text-7xl font-bold text-white drop-shadow-2xl animate-fade-in">
-              Hi, I'm <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">Arpita Raj</span> 👩‍💻
+              Hi, I'm <span className="text-white font-extrabold drop-shadow-lg">Arpita Raj</span> 👩‍💻
             </h1>
             
             {/* Typewriter Effect */}
