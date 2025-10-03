@@ -40,7 +40,9 @@ const Header = () => {
           {/* Animated Logo */}
           <div 
             onClick={() => scrollToSection('hero')}
-            className="font-bold text-2xl bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent cursor-pointer hover:scale-110 transition-all duration-300 flex items-center gap-2"
+            className={`font-bold text-2xl cursor-pointer hover:scale-110 transition-all duration-300 flex items-center gap-2 ${
+              isScrolled ? 'text-gray-800' : 'text-white'
+            }`}
           >
             <div className="p-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl">
               <Sparkles className="w-5 h-5 text-white animate-pulse" />
