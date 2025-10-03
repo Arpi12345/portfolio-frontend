@@ -14,15 +14,6 @@ const Hero = () => {
     <section id="hero" className="min-h-screen flex items-center justify-center bg-white">
       <div className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center space-y-8">
-          {/* Profile Avatar */}
-          <div className="flex justify-center mb-12">
-            <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center border-4 border-white shadow-lg">
-              <span className="text-4xl font-light text-gray-600">
-                {profileData.name.split(' ').map(n => n[0]).join('')}
-              </span>
-            </div>
-          </div>
-
           {/* Main Heading */}
           <div className="space-y-6">
             <h1 className="text-6xl md:text-8xl font-light text-black tracking-tight leading-none">
