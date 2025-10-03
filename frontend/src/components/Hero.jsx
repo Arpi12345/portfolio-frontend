@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
-import { Github, Mail, ExternalLink, Cloud, Sparkles, Code2, Palette } from 'lucide-react';
+import { Download, Mail } from 'lucide-react';
 import { profileData } from '../data/mock';
 
 const Hero = () => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const titles = [
+    'Full Stack Web Developer',
+    'MERN Stack Developer', 
+    'Google Cloud Certified',
+    'AI/ML Enthusiast'
+  ];
+  
+  const currentTitle = titles[Math.floor(currentIndex / 50) % titles.length];
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex(prev => prev + 1);
+    }, 150);
+    return () => clearInterval(timer);
+  }, []);
+  
+  useEffect(() => {
+    const textIndex = currentIndex % (currentTitle.length + 10);
+    if (textIndex <= currentTitle.length) {
+      setDisplayedText(currentTitle.slice(0, textIndex));
+    } else {
+      setDisplayedText(currentTitle);
+    }
+  }, [currentIndex, currentTitle]);
+
   const scrollToSection = (sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ 
       behavior: 'smooth' 
@@ -12,102 +40,79 @@ const Hero = () => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-300/15 to-purple-300/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-gradient-to-r from-purple-300/25 to-pink-300/25 rounded-full blur-2xl animate-bounce delay-500"></div>
+      {/* Animated Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 animate-gradient">
+        {/* Floating Gradient Blobs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/30 to-purple-400/30 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-300/25 to-pink-300/25 rounded-full blur-3xl animate-float delay-1000"></div>
+        <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-gradient-to-r from-purple-300/35 to-blue-300/35 rounded-full blur-2xl animate-float delay-500"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-48 h-48 bg-gradient-to-r from-pink-300/30 to-indigo-300/30 rounded-full blur-2xl animate-float delay-750"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
-        <div className="text-center space-y-8">
-          {/* Animated Profile Badge */}
-          <div className="flex justify-center mb-12">
-            <div className="relative">
-              <div className="w-40 h-40 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full p-1 animate-spin-slow">
-                <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                  <span className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                    {profileData.name.split(' ').map(n => n[0]).join('')}
-                  </span>
-                </div>
-              </div>
-              <div className="absolute -top-2 -right-2 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full p-2 animate-bounce">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-            </div>
-          </div>
-
-          {/* Main Heading with Gradient Text */}
-          <div className="space-y-6">
-            <h1 className="text-6xl md:text-8xl font-bold text-white tracking-tight leading-none animate-fade-in drop-shadow-2xl">
-              {profileData.name}
+      {/* Content */}
+      <div className="max-w-6xl mx-auto px-6 py-20 relative z-10 text-center">
+        <div className="space-y-8">
+          {/* Greeting with Emoji */}
+          <div className="space-y-4">
+            <h1 className="text-5xl md:text-7xl font-bold text-white drop-shadow-2xl animate-fade-in">
+              Hi, I'm <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">Arpita Raj</span> 👩‍💻
             </h1>
-            <div className="flex items-center justify-center gap-4">
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full border border-white/20">
-                <Code2 className="w-6 h-6 text-indigo-400" />
-                <h2 className="text-2xl md:text-3xl font-semibold text-white">
-                  {profileData.title}
-                </h2>
-              </div>
+            
+            {/* Typewriter Effect */}
+            <div className="h-16 flex items-center justify-center">
+              <h2 className="text-2xl md:text-4xl font-semibold text-indigo-200">
+                {displayedText}
+                <span className="animate-pulse text-white">|</span>
+              </h2>
             </div>
+            
+            {/* Subtitle */}
+            <p className="text-xl md:text-2xl text-blue-100 font-medium max-w-4xl mx-auto leading-relaxed">
+              Passionate about creating innovative web solutions with modern technologies. 
+              Certified in Google Cloud with expertise in AI/ML and full-stack development.
+            </p>
           </div>
 
-          {/* Dynamic Summary with Icons */}
-          <div className="max-w-4xl mx-auto relative">
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 border border-white/30 shadow-2xl">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg">
-                  <Palette className="w-8 h-8 text-white" />
-                </div>
-                <p className="text-xl text-gray-700 leading-relaxed font-medium">
-                  {profileData.summary}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Animated Action Buttons */}
+          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
             <Button 
-              onClick={() => scrollToSection('projects')}
-              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-pink-500 text-white px-10 py-6 text-lg font-semibold rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-2xl transform"
+              onClick={() => window.open('/resume/arpita-raj-resume.pdf', '_blank')}
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-purple-600 hover:to-pink-500 text-white px-10 py-6 text-lg font-bold rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-2xl transform glow-effect"
             >
-              <Sparkles className="w-5 h-5 mr-2" />
-              Explore My Work
+              <Download className="w-5 h-5 mr-2" />
+              View Resume
             </Button>
             <Button 
-              variant="outline"
               onClick={() => scrollToSection('contact')}
-              className="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-10 py-6 text-lg font-semibold rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-2xl transform backdrop-blur-sm"
+              className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white hover:text-purple-600 px-10 py-6 text-lg font-bold rounded-2xl transition-all duration-300 hover:scale-110 hover:shadow-2xl transform"
             >
               <Mail className="w-5 h-5 mr-2" />
-              Let's Connect
+              Contact Me
             </Button>
           </div>
 
-          {/* Floating Social Links */}
-          <div className="flex items-center justify-center gap-6 mt-16">
-            {[
-              { icon: Github, href: profileData.github, color: 'from-indigo-400 to-purple-500' },
-              { icon: Mail, href: `mailto:${profileData.email}`, color: 'from-purple-400 to-pink-500' },
-              { icon: Cloud, href: profileData.cloudProfile, color: 'from-blue-400 to-indigo-500' },
-              { icon: ExternalLink, href: profileData.portfolio, color: 'from-indigo-500 to-purple-600' }
-            ].map((social, index) => {
-              const IconComponent = social.icon;
-              return (
-                <a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`p-4 bg-gradient-to-r ${social.color} rounded-2xl text-white hover:scale-110 transition-all duration-300 hover:shadow-2xl transform animate-float backdrop-blur-sm border border-white/20`}
-                  style={{ animationDelay: `${index * 200}ms` }}
-                >
-                  <IconComponent className="w-6 h-6" />
-                </a>
-              );
-            })}
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="text-3xl font-bold text-white mb-2">18+</div>
+              <div className="text-indigo-200 font-medium">Google Cloud Badges</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="text-3xl font-bold text-white mb-2">5+</div>
+              <div className="text-indigo-200 font-medium">Full Stack Projects</div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+              <div className="text-3xl font-bold text-white mb-2">100%</div>
+              <div className="text-indigo-200 font-medium">Passion for Tech</div>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
         </div>
       </div>
     </section>

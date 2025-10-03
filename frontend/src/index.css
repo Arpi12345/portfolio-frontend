@@ -46,6 +46,15 @@ code {
     }
 }
 
+@keyframes gradient {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
 .animate-float {
     animation: float 6s ease-in-out infinite;
 }
@@ -58,12 +67,18 @@ code {
     animation: fade-in 1s ease-out;
 }
 
-/* Gradient Text Effects */
-.gradient-text {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+}
+
+/* Glow Effects */
+.glow-effect {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4), 0 0 40px rgba(147, 51, 234, 0.3);
+}
+
+.glow-effect:hover {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.6), 0 0 60px rgba(147, 51, 234, 0.4);
 }
 
 /* Custom Scrollbar */
@@ -72,16 +87,16 @@ code {
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #f1f5f9;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
 }
 
 /* Glass Morphism Effect */
@@ -91,9 +106,36 @@ code {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Hover Glow Effects */
-.hover-glow:hover {
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+/* Smooth Scroll Animations */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.scroll-animate.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+}
+
+/* Pill Style Badges */
+.skill-pill {
+    @apply px-4 py-2 rounded-full font-semibold transition-all duration-300 hover:scale-105;
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+    color: #4338ca;
+    border: 1px solid #c7d2fe;
+}
+
+.skill-pill:hover {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 @layer base {

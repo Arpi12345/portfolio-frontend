@@ -1,67 +1,81 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from './ui/card';
-import { Code, Database, Cloud, Wrench, Globe, Cpu, Zap, Star } from 'lucide-react';
+import { Code, Database, Cloud, Wrench, Globe, Cpu, Zap } from 'lucide-react';
 import { skills } from '../data/mock';
 
 const Skills = () => {
+  const [hoveredSkill, setHoveredSkill] = useState(null);
+
   const skillCategories = [
     {
       title: 'Languages',
       icon: Code,
-      items: skills.languages,
-      gradient: 'from-indigo-500 to-purple-600',
-      bgGradient: 'from-indigo-50 to-purple-50',
-      borderColor: 'border-indigo-200'
+      items: [
+        { name: 'JavaScript', level: 90 },
+        { name: 'HTML', level: 95 },
+        { name: 'CSS', level: 90 },
+        { name: 'Java', level: 75 },
+        { name: 'C', level: 70 },
+        { name: 'SQL', level: 80 }
+      ],
+      gradient: 'from-blue-500 to-indigo-600',
+      bgGradient: 'from-blue-50 to-indigo-50'
     },
     {
       title: 'Frontend',
       icon: Globe,
-      items: skills.frontend,
-      gradient: 'from-blue-500 to-indigo-600',
-      bgGradient: 'from-blue-50 to-indigo-50',
-      borderColor: 'border-blue-200'
+      items: [
+        { name: 'React.js', level: 85 },
+        { name: 'Tailwind CSS', level: 90 },
+        { name: 'Bootstrap', level: 80 },
+        { name: 'Material UI', level: 75 }
+      ],
+      gradient: 'from-indigo-500 to-purple-600',
+      bgGradient: 'from-indigo-50 to-purple-50'
     },
     {
       title: 'Backend',
       icon: Cpu,
-      items: skills.backend,
-      gradient: 'from-purple-500 to-indigo-600',
-      bgGradient: 'from-purple-50 to-indigo-50',
-      borderColor: 'border-purple-200'
+      items: [
+        { name: 'Node.js', level: 80 },
+        { name: 'Express.js', level: 85 },
+        { name: 'EJS', level: 70 },
+        { name: 'REST APIs', level: 80 }
+      ],
+      gradient: 'from-purple-500 to-pink-500',
+      bgGradient: 'from-purple-50 to-pink-50'
     },
     {
       title: 'Database',
       icon: Database,
-      items: skills.database,
-      gradient: 'from-indigo-600 to-purple-500',
-      bgGradient: 'from-indigo-50 to-purple-50',
-      borderColor: 'border-indigo-200'
+      items: [
+        { name: 'MongoDB', level: 85 },
+        { name: 'SQL', level: 75 }
+      ],
+      gradient: 'from-pink-500 to-red-500',
+      bgGradient: 'from-pink-50 to-red-50'
     },
     {
-      title: 'Tools',
-      icon: Wrench,
-      items: skills.tools,
-      gradient: 'from-blue-600 to-purple-500',
-      bgGradient: 'from-blue-50 to-purple-50',
-      borderColor: 'border-blue-200'
-    },
-    {
-      title: 'Cloud & AI',
+      title: 'Cloud & Tools',
       icon: Cloud,
-      items: skills.cloud,
-      gradient: 'from-purple-600 to-pink-500',
-      bgGradient: 'from-purple-50 to-pink-50',
-      borderColor: 'border-purple-200'
+      items: [
+        { name: 'Google Cloud Platform', level: 90 },
+        { name: 'Vertex AI', level: 80 },
+        { name: 'Git', level: 85 },
+        { name: 'GitHub', level: 90 },
+        { name: 'Redux', level: 75 }
+      ],
+      gradient: 'from-indigo-600 to-blue-500',
+      bgGradient: 'from-indigo-50 to-blue-50'
     }
   ];
 
   return (
     <section id="skills" className="py-24 bg-gradient-to-b from-white to-indigo-50 relative overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-2xl"></div>
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-xl animate-float"></div>
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-xl animate-float delay-1000"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -76,23 +90,23 @@ const Skills = () => {
             </h2>
           </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
-            A comprehensive toolkit spanning the full development spectrum, powered by modern technologies and cloud solutions.
+            Interactive showcase of my technical skills with proficiency levels and hands-on experience.
           </p>
         </div>
 
         {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skillCategories.map((category, index) => {
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          {skillCategories.map((category, categoryIndex) => {
             const IconComponent = category.icon;
             return (
               <Card 
                 key={category.title} 
-                className={`bg-gradient-to-br ${category.bgGradient} border-2 ${category.borderColor} shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:rotate-1 group overflow-hidden relative`}
+                className={`bg-gradient-to-br ${category.bgGradient} border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-4 group overflow-hidden relative`}
                 style={{
-                  animationDelay: `${index * 150}ms`
+                  animationDelay: `${categoryIndex * 150}ms`
                 }}
               >
-                {/* Card Glow Effect */}
+                {/* Glow Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${category.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
                 
                 <CardContent className="p-8 relative z-10">
@@ -101,32 +115,40 @@ const Skills = () => {
                     <div className={`p-4 bg-gradient-to-r ${category.gradient} rounded-2xl mr-4 group-hover:scale-110 transition-transform duration-300`}>
                       <IconComponent className="w-8 h-8 text-white" />
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors duration-300">
-                        {category.title}
-                      </h3>
-                      <div className="flex items-center gap-1 mt-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className={`w-4 h-4 ${i < 4 ? 'text-indigo-400 fill-current' : 'text-gray-300'}`} />
-                        ))}
-                      </div>
-                    </div>
+                    <h3 className="text-2xl font-bold text-gray-800 group-hover:text-indigo-600 transition-colors duration-300">
+                      {category.title}
+                    </h3>
                   </div>
 
-                  {/* Skills List */}
-                  <div className="space-y-3">
+                  {/* Skills with Progress Bars */}
+                  <div className="space-y-4">
                     {category.items.map((skill, skillIndex) => (
                       <div 
-                        key={skill}
-                        className="flex items-center py-3 px-4 bg-white/70 backdrop-blur-sm rounded-xl border border-white/50 hover:bg-white/90 hover:shadow-lg transition-all duration-300 hover:translate-x-2 group/skill"
-                        style={{
-                          animationDelay: `${(index * 150) + (skillIndex * 75)}ms`
-                        }}
+                        key={skill.name}
+                        className="group/skill"
+                        onMouseEnter={() => setHoveredSkill(`${categoryIndex}-${skillIndex}`)}
+                        onMouseLeave={() => setHoveredSkill(null)}
                       >
-                        <div className={`w-3 h-3 bg-gradient-to-r ${category.gradient} rounded-full mr-4 group-hover/skill:scale-125 transition-transform duration-200`}></div>
-                        <span className="text-gray-700 font-semibold group-hover/skill:text-indigo-600 transition-colors duration-200">
-                          {skill}
-                        </span>
+                        {/* Skill Name and Level */}
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-gray-700 font-semibold group-hover/skill:text-indigo-600 transition-colors duration-200">
+                            {skill.name}
+                          </span>
+                          <span className={`text-sm font-bold px-2 py-1 rounded-full bg-gradient-to-r ${category.gradient} text-white`}>
+                            {skill.level}%
+                          </span>
+                        </div>
+                        
+                        {/* Progress Bar */}
+                        <div className="w-full bg-white rounded-full h-3 overflow-hidden shadow-inner">
+                          <div 
+                            className={`h-full bg-gradient-to-r ${category.gradient} rounded-full transition-all duration-1000 ease-out transform origin-left`}
+                            style={{
+                              width: hoveredSkill === `${categoryIndex}-${skillIndex}` ? `${skill.level}%` : '0%',
+                              transitionDelay: `${skillIndex * 100}ms`
+                            }}
+                          ></div>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -136,19 +158,19 @@ const Skills = () => {
           })}
         </div>
 
-        {/* Animated Stats Section */}
+        {/* Overall Stats */}
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
           {[
-            { number: '18+', label: 'GCP Badges', color: 'from-blue-500 to-indigo-600' },
-            { number: '5+', label: 'Projects', color: 'from-indigo-500 to-purple-600' },
-            { number: '3+', label: 'Years Learning', color: 'from-purple-500 to-pink-500' },
-            { number: '100%', label: 'Dedication', color: 'from-indigo-600 to-purple-500' }
+            { number: '6+', label: 'Programming Languages', color: 'from-blue-500 to-indigo-600' },
+            { number: '10+', label: 'Frameworks & Libraries', color: 'from-indigo-500 to-purple-600' },
+            { number: '18+', label: 'Cloud Certifications', color: 'from-purple-500 to-pink-500' },
+            { number: '5+', label: 'Major Projects', color: 'from-pink-500 to-red-500' }
           ].map((stat, index) => (
             <div key={stat.label} className="text-center group">
-              <div className={`text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300`}>
                 {stat.number}
               </div>
-              <div className="text-gray-600 font-semibold text-lg group-hover:text-indigo-600 transition-colors duration-300">
+              <div className="text-gray-600 font-semibold group-hover:text-indigo-600 transition-colors duration-300">
                 {stat.label}
               </div>
             </div>
